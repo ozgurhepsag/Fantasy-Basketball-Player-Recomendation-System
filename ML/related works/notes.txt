@@ -1,0 +1,14 @@
+game_score = PTS + 0.4 * FG - 0.7 * FGA - 0.4*(FTA - FT) + 0.7 * ORB + 0.3 * DRB + STL + 0.7 * AST + 0.7 * BLK - 0.4 * PF - TOV
+https://blog.datarobot.com/using-datarobot-to-predict-nba-player-performance
+
+https://www.basketball-reference.com/about/glossary.html
+
+With the use of clustering, I plan on grouping players based off their “type” of player. In
+a similar project done by Alex Cheng, the 8 categories that players were grouped into were:
+Offensive Centers, Combo Guards, Shooting Wings, Floor Generals, Versatile Forwards,
+Scoring Wings, 3-and-D Wings, and Defensive Centers2
+. Generating similar clusters allow the
+projections to be based off each specific cluster, and not as much the whole data set, while also
+giving the user a more useful guide to how players earn their fantasy points and their style of
+play
+
