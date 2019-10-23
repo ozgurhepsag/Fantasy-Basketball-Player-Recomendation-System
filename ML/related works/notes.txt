@@ -12,3 +12,14 @@ projections to be based off each specific cluster, and not as much the whole dat
 giving the user a more useful guide to how players earn their fantasy points and their style of
 play
 
+FIELD GOALS ATTEMPTED -0.45 POINTS
+FIELD GOALS MADE 1.0 POINTS
+FREE THROWS ATTEMPTED -0.75 POINTS
+FREE THROWS MADE 1.0 POINTS
+3-POINT SHOTS MADE 3.0 POINTS
+POINTS SCORED 0.5 POINTS
+TOTAL REBOUNDS 1.5 POINTS
+ASSISTS 1.5 POINTS
+STEALS 2.0 POINTS
+BLOCKED SHOTS 3.0 POINTS
+TURNOVERS -2.0 POINTS

@@ -37,20 +37,25 @@ from sklearn.metrics import mean_squared_error, r2_score
 #     if row['FTA'] is 0 and row.isnull()['FT_perc']:
 #         dataframe.loc[index, ['FT_perc']] = 0
 
-merged_path = "C:/Users/ozgur/Desktop/dev/Fantasy-Basketball-Player-Recomendation-System/ML/merged.csv"
+merged_path = "C:/Users/ozgur/Desktop/dev/Fantasy-Basketball-Player-Recomendation-System/ML/main_merged2.csv"
 merged_df = pd.read_csv(merged_path, index_col=None, header=0)
 merged_df.Date = pd.to_datetime(merged_df.Date)
 print(merged_df.dtypes)
 
 MONTH = 30
-WEEK = 7
-temp_df = merged_df.drop(['Pos', 'Salary', 'Starter', 'Team', 'FPTS', 'Value',
-       'Home', 'W', 'W_PTS', 'L_PTS', 'MP', 'FG', 'FGA', 'FG_perc', '3P',
-       '3PA', '3P_perc', 'FT', 'FTA', 'FT_perc', 'ORB', 'DRB', 'STL',
-       'BLK', 'AST', 'TRB', 'PF', 'PTS', 'DD', 'TD', 'USG_perc', 'DRtg',
-       'ORtg', 'AST_perc', 'DRB_perc', 'ORB_perc', 'BLK_perc', 'TOV_perc',
-       'STL_perc', 'eFG_perc', 'PG', 'SG', 'F', 'C', 'PTS_AVG'], axis=1)
-merged_df['TOV_AVG'] = np.nan
+
+temp_df = merged_df.drop(['Pos', 'Starter', 'Team', 'Home', 'W',
+       'FG', 'FGA', 'FG_perc', 'USG_perc', '3PA', '3P_perc', 'FTA',
+       'FT_perc', 'TRB', 'AST', 'STL', 'BLK', 'PF', 'PTS',
+       'TOV', 'DRtg', 'AST_perc', 'DRB_perc', 'ORB_perc', 'BLK_perc',
+       'TOV_perc', 'STL_perc', 'eFG_perc', 'PG', 'SG', 'F', 'C',
+       'PTS_AVG Last Month', 'PTS_AVG Last Week', 'AST Last Week', 'PTS_AVG',
+       'AST Last Month', 'MP_AVG', 'FG_AVG', 'FGA_AVG', 'FG_perc_AVG',
+       'FG_AVG Last Week', 'FGA_AVG Last Week', 'FG_perc_AVG Last Week',
+       'AST_AVG', 'FG_AVG Last Month', 'FGA_AVG Last Month',
+       'FG_perc_AVG Last Month', 'Opp', 'BLK_AVG', 'BLK Last Week',
+       'BLK Last Month', 'TRB_AVG', 'STL_AVG'], axis=1)
+merged_df['FT Last Month'] = np.nan
 
 for index_i, row_i in temp_df.iterrows():
     count = 0
@@ -59,18 +64,18 @@ for index_i, row_i in temp_df.iterrows():
     for index_j, row_j in temp_df.iterrows():
         if index_j >= index_i:
             break
-        elif row_i['Name'] == row_j['Name']:
+        elif (row_i['Name'] == row_j['Name']) and (row_i['Date'] - row_j['Date']).days <= MONTH:  
             count += 1
-            total += row_j['TOV']
+            total += row_j['FT']
      
     if total is 0:
-        merged_df.loc[index_i, ['TOV_AVG']] = 0
+        merged_df.loc[index_i, ['FT Last Month']] = 0
     else:
-        merged_df.loc[index_i, ['TOV_AVG']] = total / count
+        merged_df.loc[index_i, ['FT Last Month']] = total / count
     
-    print(index_i, total, count, merged_df.loc[index_i, ['TOV_AVG']])
+    print(index_i, total, count, merged_df.loc[index_i, ['FT Last Month']])
     
-merged_df.to_csv("merged8.csv", encoding='utf-8', index=False)
+merged_df.to_csv("merged13.csv", encoding='utf-8', index=False)
 
 
 # merged_path = "C:/Users/ozgur/Desktop/dev/Fantasy-Basketball-Player-Recomendation-System/ML/main_merged2.csv"
