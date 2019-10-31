@@ -2,3 +2,4 @@
 .pylintrc
 .vscode/settings.json
 .ipynb_checkpoints/Untitled-checkpoint.ipynb
+*.gradle
