@@ -1,8 +1,5 @@
 package com.example.yahooapi;
 
-import android.accounts.AuthenticatorException;
-import android.app.AuthenticationRequiredException;
-
 import com.github.scribejava.apis.YahooApi20;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth2AccessToken;
@@ -55,7 +52,7 @@ public class OAuth {
             resetAuthentication();
 
         updateTokens(oAuth2AccessToken.getAccessToken(), oAuth2AccessToken.getRefreshToken());
-        refreshAccessToken();
+
         return response.getBody();
     }
 

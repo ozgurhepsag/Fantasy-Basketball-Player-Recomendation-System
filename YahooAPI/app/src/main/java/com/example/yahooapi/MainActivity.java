@@ -2,40 +2,30 @@ package com.example.yahooapi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.yahooapi.Requests;
 import com.example.yahooapi.OAuth;
 
-import com.github.scribejava.apis.YahooApi20;
-import com.github.scribejava.core.builder.ServiceBuilder;
-import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.github.scribejava.core.model.OAuthConstants;
-import com.github.scribejava.core.model.OAuthRequest;
-import com.github.scribejava.core.model.Response;
-import com.github.scribejava.core.model.Verb;
-import com.github.scribejava.core.oauth.OAuth20Service;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
     private Requests requests = new Requests();
     private OAuth oAuth = new OAuth();
-    ArrayList<String> allPlayers = new ArrayList<String>();;
-    String response1;
-    String response2;
+    ArrayList<String> allPlayers = new ArrayList<String>();
+    ArrayList<Team> teams = new ArrayList<Team>();
+    UserInfo user = new UserInfo();
     EditText et;
 
     @Override
@@ -44,29 +34,43 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         et = findViewById(R.id.editText);
-
+        showToast(MainActivity.this, "Hello");
     }
 
     public void getAllRosters(View view) throws InterruptedException, ExecutionException, IOException {
 
         final String yahooCode = et.getText().toString();
+        showToast(MainActivity.this, "Fethcing information in progress.");
 
         new Thread(new Runnable() {
             public void run() {
                 try {
                     oAuth.finishAuthentication(yahooCode);
 
-                    for (int i = 1; i < 21; i++) { // instead of 21, team number needs to be got dynamically
-                        allPlayers.add(oAuth.sendRequest(Requests.getUserTeamPlayers(Integer.toString(i), "44180")));
+                    String leagueXML = oAuth.sendRequest(Requests.getLeagueInfo());
+                    user = XMLParser.parseLeagueInfo(leagueXML, user);
+                    String teamXML = oAuth.sendRequest(Requests.getTeamInfo());
+                    user = XMLParser.parseTeamInfo(teamXML, user);
+
+                    for (int i = 1; i < user.getNumberOfTeaminLeague() + 1; i++) { // instead of 21, team number needs to be got dynamically
+                        allPlayers.add(oAuth.sendRequest(Requests.getUserTeamPlayers(Integer.toString(i), user.getLeagueID())));
+                        teams.add(XMLParser.parseTeam(allPlayers.get(i - 1)));
+                        showToast(MainActivity.this, "Fetchinginformation from Team " + i + ".");
+
+                        if (Integer.parseInt(teams.get(i - 1).getTeamID()) == Integer.parseInt(user.getTeamID()))
+                            user.setRoster(teams.get(i - 1).getRoster());
+
                     }
+                    showToast(MainActivity.this, "Fethcing information completed.");
 
                 }
                 catch (Exception e){
+                    showToast(MainActivity.this, "An error occured.");
                     String ex = e.toString();
                 }
             }
         }).start();
-
+        String asd = null;
     }
 
     public void getYahooCode(View view){
@@ -75,5 +79,15 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
+    }
+
+    public void showToast(final Context context, final String text)
+    {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            public void run() {
+                Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
