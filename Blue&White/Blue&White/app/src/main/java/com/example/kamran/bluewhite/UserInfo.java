@@ -4,11 +4,16 @@ import java.util.ArrayList;
 
 import android.app.Application;
 public class UserInfo {
+    private String userName;
     private String teamID;
     private String teamName;
     private String leagueID;
-    private ArrayList<Player> roster;
+    public ArrayList<Player> roster;
     private String numberOfTeaminLeague;
+
+    public String getUserName() { return userName;}
+
+    public void setUserName(String uname) { this.userName = uname;}
 
     public String getTeamID() {
         return teamID;

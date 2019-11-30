@@ -70,6 +70,7 @@ public class XMLParser {
 
         String lagueID = "";
         String numberOfTeams = "";
+        String username = "";
 
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         factory.setNamespaceAware(true);
@@ -92,7 +93,10 @@ public class XMLParser {
                         lagueID = text;
                     } else if (tagname.equalsIgnoreCase("num_teams")) {
                         numberOfTeams = text;
+                    } else if (tagname.equalsIgnoreCase("name")) {
+                        username = text;
                     }
+
                     break;
 
                 default:
@@ -103,6 +107,7 @@ public class XMLParser {
 
         user.setLeagueID(lagueID);
         user.setNumberOfTeaminLeague(numberOfTeams);
+        user.setUserName(username);
         return user;
     }
 

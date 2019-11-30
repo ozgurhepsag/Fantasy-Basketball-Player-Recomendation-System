@@ -23,6 +23,7 @@ public class signin extends AppCompatActivity {
     ImageView sback;
     LinearLayout loginn;
     EditText et;
+
     //private ProgressBar spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class signin extends AppCompatActivity {
 
                             String leagueXML = oAuth.sendRequest(Requests.getLeagueInfo());
                             user = XMLParser.parseLeagueInfo(leagueXML, user);
+
                             String teamXML = oAuth.sendRequest(Requests.getTeamInfo());
                             user = XMLParser.parseTeamInfo(teamXML, user);
 
@@ -64,7 +66,9 @@ public class signin extends AppCompatActivity {
 
                             }
                             g.addUser(user);
-
+                            g.fetched=true;
+                            g.test = leagueXML;
+                            g.test2=teamXML;
                             showToast(signin.this, "Fethcing information completed.");
                             Intent it = new Intent(signin.this,Profile.class);
                             startActivity(it);

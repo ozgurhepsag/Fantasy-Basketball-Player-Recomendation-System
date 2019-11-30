@@ -8,6 +8,8 @@ public class Player {
     private String[] positions;
     private String imageUrl;
 
+
+
     public String getName() {
         return name;
     }
