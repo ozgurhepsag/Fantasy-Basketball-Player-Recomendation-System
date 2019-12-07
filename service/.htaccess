@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule ^players/?$ handler.php
+RewriteRule ^players/([0-9]+)?$ handler.php&tpm=$1
