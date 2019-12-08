@@ -6,6 +6,7 @@ public class Globals extends Application {
 
     ArrayList<UserInfo> users = new ArrayList<>();
     ArrayList<Player> players = new ArrayList<>();
+    ArrayList<Team> teams = new ArrayList<>();
     Boolean fetched=false; // datas fetched from yahoo or not?
     String response;
     String test;

@@ -251,7 +251,8 @@
                         android:textColor="#fff"
                         android:textSize="16dp"
                         android:clickable="true"
-                        android:onClick="recommend"/>
+                        android:onClick="recommend"
+                        />
                     />
 
 

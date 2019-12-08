@@ -71,6 +71,7 @@ public class signin extends AppCompatActivity {
                                     user.setRoster(teams.get(i - 1).getRoster());
 
                             }
+                            g.teams=teams;
                             g.addUser(user);
                             g.fetched=true;
                             g.test = leagueXML;
@@ -99,7 +100,7 @@ public class signin extends AppCompatActivity {
                         }
                     }
                 }).start();
-                String asd = null;
+                //String asd = null;
             }
         });
         sback.setOnClickListener(new View.OnClickListener() {

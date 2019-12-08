@@ -39,6 +39,8 @@ public class Profile extends AppCompatActivity {
     private String[] attributes = {"PTS", "REB", "AST", "BLK", "STL", "FG", "FT", "TPM", "TOX"};
     private ProgressBar loading;
     private Handler mHandler = new Handler();
+    private LinearLayout recommend;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class Profile extends AppCompatActivity {
         final ListView list = findViewById(R.id.list);
         ArrayList<Player> arrayList = new ArrayList<Player>();
         spinner = findViewById(R.id.spinner1);
+        //recommend = (LinearLayout)findViewById(R.id.loginwithyahoo5);
 
 
         dataAdapterForAttributes = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, attributes);
@@ -91,12 +94,16 @@ public class Profile extends AppCompatActivity {
         }
         //twNumOfTeams.setText(g.getUser(0).getNumberOfTeaminLeague());
 
+        /*recommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+
+    }); */
     }
 
     public void recommend(View v) throws IOException {
-
-        //mHandler.postDelayed(mLaunchTask,MYDELAYTIME);
-
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -104,81 +111,58 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        final Globals g = (Globals) getApplication();
-        String url = "";
-        switch (g.getSpinnerItem()) {
-            case "PTS" :
-                url = "http://fantasytestingg.000webhostapp.com/handler.php?pts";
-                break;
-            case "REB" :
-                url = "http://fantasytestingg.000webhostapp.com/handler.php?reb";
-                break;
-            case "AST" :
-                url = "http://fantasytestingg.000webhostapp.com/handler.php?ast";
-                break;
-            case "BLK" :
-                url = "http://fantasytestingg.000webhostapp.com/handler.php?blk";
-                break;
-            case "STL" :
-                url = "http://fantasytestingg.000webhostapp.com/handler.php?stl";
-                break;
-            case "FG" :
-                url = "http://fantasytestingg.000webhostapp.com/handler.php?fg";
-                break;
-            case "FT" :
-                url = "http://fantasytestingg.000webhostapp.com/handler.php?ft";
-                break;
-            case "TPM" :
-                url = "http://fantasytestingg.000webhostapp.com/handler.php?tpm";
-                break;
-            case "TOX" :
-                url = "http://fantasytestingg.000webhostapp.com/handler.php?tox";
-                break;
-            default :
-                url = "http://fantasytestingg.000webhostapp.com/handler.php";
-                break;
-        }
-        final Request request = new Request.Builder()
-                .url(url)
-                .build();
+        new Thread(new Runnable() {
+            public void run() {
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        twTeam.setText("Failure");
-                    }
-                });
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        loading.setVisibility(View.GONE);
-                    }
-                });
-            }
 
-            @Override
-            public void onResponse(Call call, final Response response) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            g.response = response.body().string();
-                            //JSONParser.parseJsonResponseOfPhpService(g.response);
-                            Toast.makeText(getApplicationContext(),"Response saved",Toast.LENGTH_LONG).show();
-                            Intent it = new Intent(Profile.this,Recommendation.class);
-                            startActivity(it);
+                final Globals g = (Globals) getApplication();
+                String url = "";
+                switch (g.getSpinnerItem()) {
+                    case "PTS":
+                        url = "http://fantasytestingg.000webhostapp.com/handler.php?pts";
+                        break;
+                    case "REB":
+                        url = "http://fantasytestingg.000webhostapp.com/handler.php?reb";
+                        break;
+                    case "AST":
+                        url = "http://fantasytestingg.000webhostapp.com/handler.php?ast";
+                        break;
+                    case "BLK":
+                        url = "http://fantasytestingg.000webhostapp.com/handler.php?blk";
+                        break;
+                    case "STL":
+                        url = "http://fantasytestingg.000webhostapp.com/handler.php?stl";
+                        break;
+                    case "FG":
+                        url = "http://fantasytestingg.000webhostapp.com/handler.php?fg";
+                        break;
+                    case "FT":
+                        url = "http://fantasytestingg.000webhostapp.com/handler.php?ft";
+                        break;
+                    case "TPM":
+                        url = "http://fantasytestingg.000webhostapp.com/handler.php?tpm";
+                        break;
+                    case "TOX":
+                        url = "http://fantasytestingg.000webhostapp.com/handler.php?tox";
+                        break;
+                    default:
+                        url = "http://fantasytestingg.000webhostapp.com/handler.php";
+                        break;
+                }
+                try {
+                    final Request request = new Request.Builder()
+                            .url(url)
+                            .build();
+
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    loading.setVisibility(View.GONE);
+                                    twTeam.setText("Failure");
                                 }
                             });
-                         }
-                        catch (IOException ioe) {
-                            twTeam.setText("Error during get body");
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -186,10 +170,50 @@ public class Profile extends AppCompatActivity {
                                 }
                             });
                         }
-                    }
-                });
+
+                        @Override
+                        public void onResponse(Call call, final Response response) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        g.response = response.body().string();
+                                        //JSONParser.parseJsonResponseOfPhpService(g.response);
+                                        Toast.makeText(getApplicationContext(), "Response saved", Toast.LENGTH_LONG).show();
+                                        Intent it = new Intent(Profile.this, Recommendation.class);
+                                        startActivity(it);
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                loading.setVisibility(View.GONE);
+                                            }
+                                        });
+                                    } catch (IOException ioe) {
+                                        twTeam.setText("Error during get body");
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                loading.setVisibility(View.GONE);
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+                catch (Exception e){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            spinner.setVisibility(View.GONE);
+                        }
+                    });
+                    Toast.makeText(getApplicationContext(), "An error occured", Toast.LENGTH_LONG).show();
+                }
             }
-        });
+        }).start();
+        //mHandler.postDelayed(mLaunchTask,MYDELAYTIME);
 
 
 
