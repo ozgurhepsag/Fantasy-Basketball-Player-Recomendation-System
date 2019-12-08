@@ -78,6 +78,12 @@ public class signin extends AppCompatActivity {
                             showToast(signin.this, "Fethcing information completed.");
                             Intent it = new Intent(signin.this,Profile.class);
                             startActivity(it);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    spinner.setVisibility(View.GONE);
+                                }
+                            });
                         }
                         catch (Exception e){
                             runOnUiThread(new Runnable() {

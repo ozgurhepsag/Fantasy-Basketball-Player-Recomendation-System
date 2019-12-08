@@ -7,8 +7,14 @@ public class Globals extends Application {
     ArrayList<UserInfo> users = new ArrayList<>();
     ArrayList<Player> players = new ArrayList<>();
     Boolean fetched=false; // datas fetched from yahoo or not?
+    String response;
     String test;
     String test2;
+    private String spinnerItem; //spinner item selected from profile.
+
+    public String getSpinnerItem() {
+        return spinnerItem;
+    }
 
     public void addUser(UserInfo u){
         users.add(u);
@@ -21,6 +27,9 @@ public class Globals extends Application {
     }
     public Player getPlayer(int p){
         return players.get(p);
+    }
+    public void setSpinnerItem(String s) {
+        this.spinnerItem=s;
     }
 
 
