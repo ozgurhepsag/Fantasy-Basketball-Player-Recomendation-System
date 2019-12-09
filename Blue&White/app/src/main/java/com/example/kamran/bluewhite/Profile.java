@@ -161,11 +161,6 @@ public class Profile extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     twTeam.setText("Failure");
-                                }
-                            });
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
                                     loading.setVisibility(View.GONE);
                                 }
                             });
@@ -188,7 +183,7 @@ public class Profile extends AppCompatActivity {
                                                 loading.setVisibility(View.GONE);
                                             }
                                         });
-                                    } catch (IOException ioe) {
+                                    } catch (IOException ie) {
                                         twTeam.setText("Error during get body");
                                         runOnUiThread(new Runnable() {
                                             @Override
@@ -196,7 +191,17 @@ public class Profile extends AppCompatActivity {
                                                 loading.setVisibility(View.GONE);
                                             }
                                         });
+                                    } catch (Exception e) {   //hayat kurtaran catch blogu* //the catch block that save lifes..*
+                                        twTeam.setText("Error something.");
+                                        Toast.makeText(getApplicationContext(), "Try again:)", Toast.LENGTH_LONG).show();
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                loading.setVisibility(View.GONE);
+                                            }
+                                        });
                                     }
+
                                 }
                             });
                         }
