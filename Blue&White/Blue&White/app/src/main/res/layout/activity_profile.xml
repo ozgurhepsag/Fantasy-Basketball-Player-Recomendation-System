@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/timg">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:orientation="vertical">
+
+                <customfonts.MyTextView
+                    android:id="@+id/loginwithyahoo5"
+                    android:layout_width="146dp"
+                    android:layout_height="66dp"
+
+                    android:background="@drawable/angle"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="Recommend"
+                    android:textColor="#fff"
+                    android:textSize="16dp" />
+
+
+            </LinearLayout>
+        </FrameLayout>
+
+            <ViewFlipper
+                android:id="@+id/VF"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="75dp"
+                        android:layout_marginLeft="75dp"
+                        android:layout_marginTop="59dp"
+                        android:text="test2"
+                        android:textSize="36sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="75dp"
+                        android:layout_marginLeft="75dp"
+                        android:layout_marginTop="225dp"
+                        android:text="test3"
+                        android:textSize="36sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="75dp"
+                        android:layout_marginLeft="75dp"
+                        android:layout_marginTop="139dp"
+                        android:text="test4"
+                        android:textSize="36sp" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tw1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="YEN1"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="YEN2"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="YEN3"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+            </ViewFlipper>
+
+    </RelativeLayout>
+
+</FrameLayout>
