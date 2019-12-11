@@ -175,14 +175,15 @@ public class Profile extends AppCompatActivity {
                                         g.response = response.body().string();
                                         //JSONParser.parseJsonResponseOfPhpService(g.response);
                                         Toast.makeText(getApplicationContext(), "Response saved", Toast.LENGTH_LONG).show();
-                                        Intent it = new Intent(Profile.this, Recommendation.class);
-                                        startActivity(it);
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
                                                 loading.setVisibility(View.GONE);
                                             }
                                         });
+                                        Intent it = new Intent(Profile.this, Recommendation.class);
+                                        startActivity(it);
+                                       // loading.visibility gone was here
                                     } catch (IOException ie) {
                                         twTeam.setText("Error during get body");
                                         runOnUiThread(new Runnable() {
@@ -191,7 +192,7 @@ public class Profile extends AppCompatActivity {
                                                 loading.setVisibility(View.GONE);
                                             }
                                         });
-                                    } catch (Exception e) {   //hayat kurtaran catch blogu* //the catch block that save lifes..*
+                                    } catch (Exception e) {   //hayat kurtaran catch blogu* //the catch block that save lives..*
                                         twTeam.setText("Error something.");
                                         Toast.makeText(getApplicationContext(), "Try again:)", Toast.LENGTH_LONG).show();
                                         runOnUiThread(new Runnable() {

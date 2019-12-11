@@ -39,7 +39,7 @@ public class Recommendation extends AppCompatActivity  {
         name=findViewById(R.id.name);
         final ListView list = findViewById(R.id.list);
         tw.setText("Best Recommendations for "+ g.getSpinnerItem()+":");
-        JSONParser.parseJsonResponseOfPhpService(g.response);
+        JSONParser.parseJsonResponseOfPhpService(g.response,g.getSpinnerItem());
 
        // name.setText(JSONParser.playersList.get(0));
 
